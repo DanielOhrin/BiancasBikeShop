@@ -141,10 +141,8 @@ namespace BiancasBikeShop.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT COUNT(DISTINCT b.Id)
-                        FROM dbo.Bike AS b
-                        LEFT JOIN WorkOrder AS wo ON wo.BikeId = b.Id
-                        WHERE wo.Id IS NOT NULL
+                        SELECT COUNT(DISTINCT BikeId)
+                        FROM dbo.WorkOrder
                     ";
 
                     return (int)cmd.ExecuteScalar();
