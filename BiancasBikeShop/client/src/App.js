@@ -4,13 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, NavbarBrand, NavbarText} from 'reactstrap';
 import BikeList from './components/BikeList';
 import BikeDetails from './components/BikeDetails';
+import { getBikesInShopCount } from './bikeManager';
 
 function App() {
   const [inventory, setInventory] = useState({count: 0})
   const [detailsBikeId, setDetailsBikeId] = useState(null)
 
   const getInventory = () => {
-    //implement functionality here.... 
+    getBikesInShopCount().then(data => setInventory({count: data}))
   }
 
   useEffect(() => {

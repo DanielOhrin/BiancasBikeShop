@@ -1,16 +1,15 @@
-﻿using BiancasBikeShop.Repositories;
+﻿using BiancasBikeShop.Models;
+using BiancasBikeShop.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-
 namespace BiancasBikeShop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BikeController : ControllerBase
+    public class BikeController : ControllerBase 
     {
         private IBikeRepository _bikeRepo;
 
@@ -19,27 +18,32 @@ namespace BiancasBikeShop.Controllers
             _bikeRepo = bikeRepo;
         }
 
-        // Uncomment this and finish these controller methods...
-        // 
-        // public IActionResult Get()
-        // {
-        //     // add implementation here... 
-        //     return Ok();
-        // }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Bike> allBikes = _bikeRepo.GetAllBikes();
+            return Ok(allBikes);
+        }
 
-        // 
-        // public IActionResult Get(int id)
-        // {
-        //     //add implementation here... 
-        //     return Ok();
-        // }
+        [HttpGet("{id}")]
+        public IActionResult Get([FromRoute] int id)
+        {
+            Bike bike = _bikeRepo.GetBikeById(id);
 
-        // 
-        // public IActionResult GetBikesInShopCount()
-        // {
-        //     //add implementation here...
+            if (bike == null)
+            {
+                return NotFound();
+            }
 
-        //     return Ok();
-        // }
+            return Ok(bike);
+        }
+
+        [HttpGet("in-shop")]
+        public IActionResult GetBikesInShopCount()
+        {
+            int amountInShop = _bikeRepo.GetBikesInShopCount();
+
+            return Ok(amountInShop);
+        }
     }
 }

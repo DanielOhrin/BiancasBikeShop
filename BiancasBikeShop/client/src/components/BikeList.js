@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
+import { getBikes } from "../bikeManager"
 import BikeCard from "./BikeCard"
 
-export default function BikeList({setDetailsBikeId}) {
+export default function BikeList({ setDetailsBikeId }) {
     const [bikes, setBikes] = useState([])
 
     const getAllBikes = () => {
-        //implement functionality here...
+        getBikes().then(setBikes)
     }
 
     useEffect(() => {
@@ -13,8 +14,14 @@ export default function BikeList({setDetailsBikeId}) {
     }, [])
     return (
         <>
-        <h2>Bikes</h2>
-        {/* Use BikeCard component here to list bikes...*/}
+            <h2>Bikes</h2>
+            {
+                bikes.map(bike => <BikeCard
+                    key={`bike--${bike.id}`}
+                    bike={bike}
+                    setDetailsBikeId={setDetailsBikeId}
+                />)
+            }
         </>
     )
 }
