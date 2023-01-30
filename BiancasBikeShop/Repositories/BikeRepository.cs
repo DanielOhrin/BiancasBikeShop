@@ -143,7 +143,7 @@ namespace BiancasBikeShop.Repositories
                     cmd.CommandText = @"
                         SELECT COUNT(DISTINCT BikeId)
                         FROM dbo.WorkOrder
-						WHERE DateCompleted IS NULL
+			WHERE DateCompleted IS NULL
                     ";
 
                     return (int)cmd.ExecuteScalar();
